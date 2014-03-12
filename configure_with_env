@@ -5,9 +5,12 @@ if [[ $1 == --boost-root=* ]]; then
    BOOST_ROOT=${1#--boost-root=}
    if [ ${BOOST_ROOT:+x} ]; then
       CXXFLAGS="-I${BOOST_ROOT}/include ${CXXFLAGS}"
-      LDFLAGS="-I${BOOST_ROOT}/include ${LDFLAGS}"
+      LDFLAGS="-L${BOOST_ROOT}/lib ${LDFLAGS}"
    fi
    shift
 fi
+
+export CXXFLAGS
+export LDFLAGS
 
 BOOST_LIB_SUFFIX="" $@
