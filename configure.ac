@@ -107,13 +107,16 @@ AC_CACHE_CHECK([for boost_thread$BOOST_LIB_SUFFIX library],
 [ov_cv_boost_thread],
 [ov_cv_boost_thread=no
 ov_save_LIBS=$LIBS
-LIBS="-lboost_thread$BOOST_LIB_SUFFIX $LIBS"
+LIBS="-lboost_thread$BOOST_LIB_SUFFIX -lboost_system$BOOST_LIB_SUFFIX $PTHREAD_LIBS $LIBS"
+ov_save_CXXFLAGS=$CXXFLAGS
+CXXFLAGS="$PTHREAD_CFLAGS $CXXFLAGS"
 AC_LANG_PUSH([C++])
 AC_LINK_IFELSE([AC_LANG_PROGRAM([[#include <boost/thread.hpp>]],
                                 [[boost::thread t]])],
                [ov_cv_boost_thread=yes])
 AC_LANG_POP
 LIBS=$ov_save_LIBS
+CXXFLAGS=$ov_save_CXXFLAGS
 ])
 AS_IF([test X$ov_cv_boost_thread = Xno],
       [AC_MSG_FAILURE([libboost_thread$BOOST_LIB_SUFFIX not found])])

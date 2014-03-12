@@ -25,6 +25,7 @@
 #   include <png.h>
 # endif
 # ifdef OPENVRML_ENABLE_JPEG_TEXTURES
+#include <csetjmp>
 extern "C" {
 #   include <jpeglib.h>
 }
