@@ -1,0 +1,13 @@
+#!/bin/sh
+# Usage: configure_with_env --boost-root=/path/to/boost configure ...
+
+if [[ $1 == --boost-root=* ]]; then
+   BOOST_ROOT=${1#--boost-root=}
+   if [ ${BOOST_ROOT:+x} ]; then
+      CXXFLAGS="-I${BOOST_ROOT}/include ${CXXFLAGS}"
+      LDFLAGS="-I${BOOST_ROOT}/include ${LDFLAGS}"
+   fi
+   shift
+fi
+
+BOOST_LIB_SUFFIX="" $@
