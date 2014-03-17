@@ -52,10 +52,10 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <IncludePath Condition="'$(Platform)'=='Win32'">C:\Users\Alexander Shabalin\viewer\build32\external\install\include;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Platform)'=='Win32'">C:\Users\Alexander Shabalin\viewer\build32\external\install\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath Condition="'$(Platform)'=='x64'">C:\Users\Alexander Shabalin\viewer\build\external\install\include;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Platform)'=='x64'">C:\Users\Alexander Shabalin\viewer\build\external\install\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath Condition="'$(Platform)'=='Win32'">$(SolutionDir)..\..\build32\external\install\include;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Platform)'=='Win32'">$(SolutionDir)..\..\build32\external\install\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath Condition="'$(Platform)'=='x64'">$(SolutionDir)..\..\build\external\install\include;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Platform)'=='x64'">$(SolutionDir)..\..\build\external\install\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>

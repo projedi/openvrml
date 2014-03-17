@@ -57,8 +57,8 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath Condition="'$(Platform)'=='Win32'">C:\Users\Alexander Shabalin\viewer\build32\external\install\include;$(IncludePath)</IncludePath>
-    <IncludePath Condition="'$(Platform)'=='x64'">C:\Users\Alexander Shabalin\viewer\build\external\install\include;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Platform)'=='Win32'">$(SolutionDir)..\..\build32\external\install\include;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Platform)'=='x64'">$(SolutionDir)..\..\build\external\install\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <ClCompile>
