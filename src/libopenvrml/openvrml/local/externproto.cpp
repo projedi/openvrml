@@ -286,7 +286,7 @@ void openvrml::local::externproto_node_type::clear_externproto_nodes()
 }
 
 const openvrml::node_interface_set &
-openvrml::local::externproto_node_type::do_interfaces() const throw()
+openvrml::local::externproto_node_type::do_interfaces() const OPENVRML_NOTHROW
 {
     return this->interfaces_;
 }
