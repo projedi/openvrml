@@ -171,6 +171,6 @@ target_compile_definitions(vrml97 PUBLIC ${vrml97_DEFINES})
 target_include_directories(vrml97 PUBLIC ${vrml97_INCLUDE_DIRS})
 
 install(TARGETS vrml97
-	RUNTIME DESTINATION "bin/node/vrml97"
-	LIBRARY DESTINATION "lib/node/vrml97"
+	RUNTIME DESTINATION "bin/openvrml/node/vrml97"
+	LIBRARY DESTINATION "lib/openvrml/node/vrml97"
 )
