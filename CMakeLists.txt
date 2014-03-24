@@ -36,7 +36,8 @@ option(BUILD_WITH_FREETYPE "Enable text nodes support" ON)
 # TODO: Pass NDEBUG to msvc build when doing release build
 # TODO: and pass _DEBUG when doing debug build
 
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED filesystem system thread)
+
 if(NOT MSVC)
 	find_package(LibXml2 REQUIRED)
 endif()

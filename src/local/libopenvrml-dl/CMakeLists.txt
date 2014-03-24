@@ -4,13 +4,16 @@ set(openvrml-dl_SOURCES openvrml/local/dl.cpp)
 source_group("Source Files" FILES ${openvrml-dl_SOURCES})
 source_group("Header Files" FILES ${openvrml-dl_HEADERS} ${openvrml-dl_PRIVATE_HEADERS})
 
-set(openvrml-dl_LIBRARIES)
+set(openvrml-dl_LIBRARIES
+	${Boost_FILESYSTEM_LIBRARY}
+)
 set(openvrml-dl_DEFINES
-	BOOST_FILESYSTEM_VERSION=3 OPENVRML_BUILD_DLL
+	BOOST_FILESYSTEM_VERSION=3 OPENVRML_BUILD_DLL BOOST_ALL_NO_LIB
 )
 set(openvrml-dl_INCLUDE_DIRS
 	../../libopenvrml
 	${CMAKE_CURRENT_BINARY_DIR}/../../libopenvrml
+	${Boost_INCLUDE_DIRS}
 )
 
 add_library(openvrml-dl STATIC ${openvrml-dl_SOURCES}

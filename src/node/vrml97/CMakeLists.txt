@@ -126,16 +126,19 @@ source_group("Source Files" FILES ${vrml97_SOURCES})
 source_group("Header Files" FILES ${vrml97_HEADERS} ${vrml97_PRIVATE_HEADERS})
 
 set(vrml97_LIBRARIES
+	openvrml_static
 	${ZLIB_LIBRARIES}
+	${Boost_LIBRARIES}
 )
 set(vrml97_DEFINES
-	-DBOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
-	-DBOOST_MPL_LIMIT_VECTOR_SIZE=30
+	BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
+	BOOST_MPL_LIMIT_VECTOR_SIZE=30
+	BOOST_ALL_NO_LIB
 )
 set(vrml97_INCLUDE_DIRS
 	../../libopenvrml
 	${CMAKE_CURRENT_BINARY_DIR}/../../libopenvrml
-	${BOOST_INCLUDE_DIRS}
+	${Boost_INCLUDE_DIRS}
 	${ZLIB_INCLUDE_DIRS}
 )
 
@@ -158,13 +161,17 @@ if(BUILD_WITH_FREETYPE)
 endif()
 
 if(MSVC)
-	list(APPEND openvrml_DEFINES
-		-DNOMINMAX -D_CRT_SECURE_NO_WARNINGS -D_SCL_DECURE_NO_WARNINGS
-		-DOPENVRML_USE_DLL
+	list(APPEND vrml97_DEFINES
+		NOMINMAX _CRT_SECURE_NO_WARNINGS _SCL_DECURE_NO_WARNINGS
+		OPENVRML_USE_LIB
 	)
 endif()
 
-add_library(vrml97 MODULE ${vrml97_SOURCES} ${vrml97_HEADERS} ${vrml97_PRIVATE_HEADERS})
+if(MSVC)
+	add_library(vrml97 SHARED ${vrml97_SOURCES} ${vrml97_HEADERS} ${vrml97_PRIVATE_HEADERS})
+else()
+	add_library(vrml97 MODULE ${vrml97_SOURCES} ${vrml97_HEADERS} ${vrml97_PRIVATE_HEADERS})
+endif()
 
 target_link_libraries(vrml97 ${vrml97_LIBRARIES})
 target_compile_definitions(vrml97 PUBLIC ${vrml97_DEFINES})

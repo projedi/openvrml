@@ -68,43 +68,51 @@ source_group("Header Files" FILES ${openvrml_HEADERS} ${openvrml_PRIVATE_HEADERS
 
 set(openvrml_LIBRARIES
 	openvrml-dl
-	${LIBXML2_LIBRARIES}
+	${Boost_LIBRARIES}
 )
 set(openvrml_DEFINES
-	-DBOOST_MPL_CFG_NO_PREPROCESSED_HEADERS -DBOOST_MPL_LIMIT_VECTOR_SIZE=30
-	-DBOOST_NO_RVALUE_REFERENCES -DBOOST_FILESYSTEM_VERSION=3
-	-DPACKAGE_VERSION=\"${PACKAGE_VERSION}\"
-	-DOPENVRML_PKGDATADIR_=\"${OPENVRML_PKGDATADIR_}\"
-	-DOPENVRML_PKGLIBDIR_=\"${OPENVRML_PKGLIBDIR_}\"
-	${LIBXML2_DEFINITIONS}
+	BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS BOOST_MPL_LIMIT_VECTOR_SIZE=30
+	BOOST_NO_RVALUE_REFERENCES BOOST_FILESYSTEM_VERSION=3
+	BOOST_ALL_NO_LIB
+	PACKAGE_VERSION=\"${PACKAGE_VERSION}\"
+	OPENVRML_PKGDATADIR_=\"${OPENVRML_PKGDATADIR_}\"
+	OPENVRML_PKGLIBDIR_=\"${OPENVRML_PKGLIBDIR_}\"
 )
 set(openvrml_INCLUDE_DIRS
 	../local/libopenvrml-dl
-	${LIBXML2_INCLUDE_DIR}
-	${BOOST_INCLUDE_DIRS}
+	${Boost_INCLUDE_DIRS}
 )
 
 if(MSVC)
 	list(APPEND openvrml_HEADERS openvrml-config-win32.h)
-	list(APPEND openvrml_SOURCES openvrml.rc)
+	#list(APPEND openvrml_SOURCES openvrml.rc)
 	list(APPEND openvrml_LIBRARIES shlwapi XmlLite)
 	list(APPEND openvrml_DEFINES
-		-DNOMINMAX -D_CRT_SECURE_NO_WARNINGS -D_SCL_DECURE_NO_WARNINGS
-		-DOPENVRML_BUILD_DLL
+		NOMINMAX _CRT_SECURE_NO_WARNINGS _SCL_DECURE_NO_WARNINGS
 	)
 else()
 	configure_file(openvrml-config.h.in openvrml-config.h)
+	list(APPEND openvrml_INCLUDE_DIRS ${LIBXML2_INCLUDE_DIR})
+	list(APPEND openvrml_LIBRARIES ${LIBXML2_LIBRARIES})
+	list(APPEND openvrml_DEFINES ${LIBXML2_DEFINITIONS})
 endif()
 
 add_library(openvrml SHARED ${openvrml_SOURCES} ${openvrml_HEADERS}
 	${openvrml_PRIVATE_HEADERS})
+add_library(openvrml_static STATIC ${openvrml_SOURCES} ${openvrml_HEADERS}
+	${openvrml_PRIVATE_HEADERS})
 
 target_link_libraries(openvrml ${openvrml_LIBRARIES})
-target_compile_definitions(openvrml PUBLIC ${openvrml_DEFINES})
+target_compile_definitions(openvrml PUBLIC ${openvrml_DEFINES} OPENVRML_BUILD_DLL)
 target_include_directories(openvrml PUBLIC ${openvrml_INCLUDE_DIRS})
 
-install(TARGETS openvrml
+target_link_libraries(openvrml_static ${openvrml_LIBRARIES})
+target_compile_definitions(openvrml_static PUBLIC ${openvrml_DEFINES} OPENVRML_BUILD_LIB)
+target_include_directories(openvrml_static PUBLIC ${openvrml_INCLUDE_DIRS})
+
+install(TARGETS openvrml openvrml_static
 	RUNTIME DESTINATION "bin"
+	ARCHIVE DESTINATION "lib"
 	LIBRARY DESTINATION "lib"
 )
 install(FILES ${openvrml_HEADERS}
