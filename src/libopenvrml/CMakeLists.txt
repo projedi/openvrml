@@ -109,6 +109,9 @@ target_include_directories(openvrml PUBLIC ${openvrml_INCLUDE_DIRS})
 target_link_libraries(openvrml_static ${openvrml_LIBRARIES})
 target_compile_definitions(openvrml_static PUBLIC ${openvrml_DEFINES} OPENVRML_BUILD_LIB)
 target_include_directories(openvrml_static PUBLIC ${openvrml_INCLUDE_DIRS})
+if(NOT MSVC)
+	target_compile_options(openvrml_static PUBLIC -fPIC)
+endif()
 
 install(TARGETS openvrml openvrml_static
 	RUNTIME DESTINATION "bin"
