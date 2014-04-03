@@ -16,6 +16,10 @@ set(openvrml-dl_INCLUDE_DIRS
 	${Boost_INCLUDE_DIRS}
 )
 
+if(UNIX)
+   list(APPEND openvrml-dl_LIBRARIES ltdl)
+endif()
+
 add_library(openvrml-dl STATIC ${openvrml-dl_SOURCES}
 	${openvrml-dl_PRIVATE_HEADERS})
 
